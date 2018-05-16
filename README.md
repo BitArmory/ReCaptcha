@@ -35,13 +35,51 @@ Usage
 You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.google.com/recaptcha)!
 
 ### Client-side Setup
+Add the following to your **html** form `POST`:
+```html
+<html>
+  <body>
+    <form method="post">
+        ...
+        <div class="g-recaptcha text-center" data-sitekey="4MafbFZV5W..."></div>
+        ...
+    </form>
+  </body>
+</html>
+```
 
 
+### Verifying the POST Server-side
+When the `POST` is received on the server:
+* Get the client's IP address only. If you're using **CloudFlare**, be sure to use the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers).
+* Extract the `g-recaptcha-response` form value.
+* Verify the **HTTP** `POST`.
 
-### Server-side Setup
+The following is an example shows how to verify the captcha during an **HTTP** `POST` back in **ASP.NET Core: Razor Pages**.
 
+```csharp
+string clientIp = this.HttpContext.Connection.RemoteIpAddress.ToString();
+string captchaResponse = null;
+string secret = "wewasAZwh28...";
 
-### Verifying
+if( this.Request.Form.TryGetValue(Constants.ClientResponseKey, out var ghr) )
+{
+   capthcaResponse = ghr;
+}
+
+var captchaApi = new ReCaptchaService();
+
+var isValid = await captchaApi.VerifyAsync(capthcaResponse, clientIp, secret);
+if( !isValid )
+{
+   this.ModelState.AddModelError("captcha", "The reCAPTCHA is not valid.");
+   return new BadRequestResult();
+}
+else{
+   //continue processing, everything is okay!
+}
+```
+That's it! **Happy verifying!** :tada:
 
 
 Building
