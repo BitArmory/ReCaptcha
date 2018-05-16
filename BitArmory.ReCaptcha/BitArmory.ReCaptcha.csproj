@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>A simple, no-drama, reCAPTCHA validation library that works with ASP.NET Core, ASP.NET MVC, and WebForms.</Description>
+    <Description>A simple, no-drama, reCAPTCHA validation library that works with ASP.NET Core, Razor Pages, MVC 5, and WebForms.</Description>
     <PackageReleaseNotes>
     </PackageReleaseNotes>
     <Version>0.0.0-localbuild</Version>
@@ -14,12 +14,12 @@
     <SignAssembly>false</SignAssembly>
     <AssemblyName>BitArmory.ReCaptcha</AssemblyName>
     <PackageId>BitArmory.ReCaptcha</PackageId>
-    <PackageTags>google;recaptcha;captcha;asp.net;aspnet;mvc;core;razor;webforms;security;bot;anti-spam;validation;recpatcha</PackageTags>
-    <PackageIconUrl>https://raw.githubusercontent.com/bchavez/BitArmory.ReCaptcha/master/docs/recaptcha.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/bchavez/BitArmory.ReCaptcha</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/bchavez/BitArmory.ReCaptcha/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>google;recaptcha;captcha;asp.net;aspnet;mvc;core;razor;razorpages;webforms;security;bot;anti-spam;validation;recpatcha</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/recaptcha.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/BitArmory/ReCaptcha</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/bchavez/BitArmory.ReCaptcha</RepositoryUrl>
+    <RepositoryUrl>https://github.com/BitArmory/ReCaptcha</RepositoryUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>

@@ -19,7 +19,7 @@ let workingDir = ChangeWorkingFolder();
 trace (sprintf "WORKING DIR: %s" workingDir)
 
 let ProjectName = "BitArmory.ReCaptcha";
-let GitHubUrl = "https://github.com/bchavez/BitArmory.ReCaptcha"
+let GitHubUrl = "https://github.com/BitArmory/ReCaptcha"
 
 let Folders = Setup.Folders(workingDir)
 let Files = Setup.Files(Folders)
