@@ -1,17 +1,17 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/pw7x5xdqcvqrsrml/branch/master?svg=true)](https://ci.appveyor.com/project/BitArmory/recaptcha/branch/master) [![Nuget](https://img.shields.io/nuget/v/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) [![Users](https://img.shields.io/nuget/dt/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/BitArmory.ReCapthca/) <img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/recaptcha.png" align='right' />
+[![Build status](https://ci.appveyor.com/api/projects/status/pw7x5xdqcvqrsrml/branch/master?svg=true)](https://ci.appveyor.com/project/BitArmory/recaptcha/branch/master) [![Nuget](https://img.shields.io/nuget/v/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/BitArmory.ReCaptcha/) [![Users](https://img.shields.io/nuget/dt/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/BitArmory.ReCaptcha/) <img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/recaptcha.png" align='right' />
 
 BitArmory.ReCaptcha for .NET and C#
 ===================================
 
 Project Description
 -------------------
-:recycle: A no-drama and friction-less **C#** **HTTP** verification client **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha).
+:recycle: A minimal, no-drama, friction-less **C#** **HTTP** verification client for **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha).
 
 The problem with current **ReCaptcha** libraries in **.NET** is that all of them take a hard dependency on the underlying web framework like **ASP.NET WebForms**, **ASP.NET MVC 5**, **ASP.NET Core**, or **ASP.NET Razor Pages**. 
 
-Furthermore, these **reCAPTCHA** libraries for **.NET** are hard coded against the `HttpContext.Request` to get the remote IP of a client. This method doesn't work if you're behind a service like **CloudFlare** where the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers) is the ***real*** IP address of the visitor on your site.
+Furthermore, current **reCAPTCHA** libraries for **.NET** are hard coded against the `HttpContext.Request` to retrieve the remote IP address of the visitor. Unfortunately, this method doesn't work if your website is behind a service like **CloudFlare** where the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers) is the ***real*** IP address of the visitor on your site.
 
-**BitArmory.ReCaptcha** is a minimal library that works across all **.NET** web frameworks without taking a hard dependency on the underlying web framework. If you want to leverage platform specific features on your platform, like **MVC** ***Action Filters*** you'll need to implement your own `ActionFilter`.
+**BitArmory.ReCaptcha** is a minimal library that works across all **.NET** web frameworks without taking a hard dependency on any web framework. If you want to leverage platform specific features, like **MVC** ***Action Filters***, you'll need to implement your own `ActionFilter` that leverages the functionality in this library.
 
 #### Supported Platforms
 * **.NET Standard 1.3** or later
@@ -32,18 +32,22 @@ Install-Package BitArmory.ReCaptcha
 Usage
 -----
 ### Getting Started
-You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.google.com/recaptcha)!
+You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.google.com/recaptcha)! After you sign up and setup your domain, you'll have two important pieces of information:
+1. Your `site` key
+2. Your `secret` key
 
 ### Client-side Setup
-Add the following to your **html** form `POST`:
+Add the following `<div class="g-recaptcha">` and `<script>` tags to your **HTML** form:
 ```html
 <html>
   <body>
-    <form method="post">
+    <form method="POST">
         ...
-        <div class="g-recaptcha text-center" data-sitekey="4MafbFZV5W..."></div>
-        ...
+        <div class="g-recaptcha" data-sitekey="your_site_key"></div>
+        <input type="submit" value="Submit">
     </form>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </body>
 </html>
 ```
@@ -51,24 +55,26 @@ Add the following to your **html** form `POST`:
 
 ### Verifying the POST Server-side
 When the `POST` is received on the server:
-* Get the client's IP address only. If you're using **CloudFlare**, be sure to use the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers).
-* Extract the `g-recaptcha-response` form value.
-* Verify the **HTTP** `POST`.
+1. Get the client's IP address. If you're using **CloudFlare**, be sure to use the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers).
+2. Extract the `g-recaptcha-response` (Client Response) **HTML** form field.
+3. Use the `ReCaptchaService` to verify the client's **reCAPTCHA** is valid.
 
-The following is an example shows how to verify the captcha during an **HTTP** `POST` back in **ASP.NET Core: Razor Pages**.
+The following example shows how to verify the captcha during an **HTTP** `POST` back in **ASP.NET Core: Razor Pages**.
 
 ```csharp
+//1. Get the client IP address in your chosen web framework
 string clientIp = this.HttpContext.Connection.RemoteIpAddress.ToString();
 string captchaResponse = null;
-string secret = "wewasAZwh28...";
+string secret = "your_secret_key";
 
-if( this.Request.Form.TryGetValue(Constants.ClientResponseKey, out var ghr) )
+//2. Extract the `g-recaptcha-response` field from the HTML form in your chosen web framework
+if( this.Request.Form.TryGetValue(Constants.ClientResponseKey, out var grr) )
 {
-   capthcaResponse = ghr;
+   capthcaResponse = grr;
 }
 
+//3. Validate the reCAPTCHA with Google
 var captchaApi = new ReCaptchaService();
-
 var isValid = await captchaApi.VerifyAsync(capthcaResponse, clientIp, secret);
 if( !isValid )
 {
@@ -88,6 +94,3 @@ Building
 * Run `build.cmd`.
 
 Upon successful build, the results will be in the `\__compile` directory. If you want to build NuGet packages, run `build.cmd pack` and the NuGet packages will be in `__package`.
-
----
-*Note: This application/third-party library is not directly supported by Coinbase Inc. Coinbase Inc. makes no claims about this application/third-party library.  This application/third-party library is not endorsed or certified by Coinbase Inc.*
