@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/3nq1hvf67yp0nswg/branch/master?svg=true)](https://ci.appveyor.com/project/bchavez/coinbase-commerce/branch/master) [![Nuget](https://img.shields.io/nuget/v/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) [![Users](https://img.shields.io/nuget/dt/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/BitArmory.ReCapthca/) <img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/recaptcha.png" align='right' />
+[![Build status](https://ci.appveyor.com/api/projects/status/pw7x5xdqcvqrsrml/branch/master?svg=true)](https://ci.appveyor.com/project/BitArmory/recaptcha/branch/master) [![Nuget](https://img.shields.io/nuget/v/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/Coinbase.Commerce/) [![Users](https://img.shields.io/nuget/dt/BitArmory.ReCaptcha.svg)](https://www.nuget.org/packages/BitArmory.ReCapthca/) <img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/recaptcha.png" align='right' />
 
 BitArmory.ReCaptcha for .NET and C#
 ===================================
