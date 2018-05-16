@@ -5,13 +5,13 @@ BitArmory.ReCaptcha for .NET and C#
 
 Project Description
 -------------------
-:recycle: A no-drama and friction-less **C#** HTTP verification client Google's [**reCAPTCHA** API](https://www.google.com/recaptcha).
+:recycle: A no-drama and friction-less **C#** **HTTP** verification client **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha).
 
-The problem with current **ReCaptcha** libraries in **.NET** is that they all take a hard dependency on the underlying web framework like **ASP.NET WebForms**, **ASP.NET MVC 5**, **ASP.NET Core**, or **ASP.NET Razor Pages**. 
+The problem with current **ReCaptcha** libraries in **.NET** is that all of them take a hard dependency on the underlying web framework like **ASP.NET WebForms**, **ASP.NET MVC 5**, **ASP.NET Core**, or **ASP.NET Razor Pages**. 
 
-Furthermore, these reCAPTCHA libraries for **.NET** are hard coded against `HttpContext` to get the remote IP of a client but that usually breaks down if you're behind a service like **CloudFlare** where the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers) is the ***real*** remote IP address of the visitor on your site.
+Furthermore, these **reCAPTCHA** libraries for **.NET** are hard coded against the `HttpContext.Request` to get the remote IP of a client. This method doesn't work if you're behind a service like **CloudFlare** where the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers) is the ***real*** IP address of the visitor on your site.
 
-This is a minimal library that works across all **.NET** technology frameworks without taking a hard dependency on the underlying web framework. If you want to leverage platform specific features on your platform, like **MVC** ***Action Filters*** you'll need to implement your own `ActionFilter`.
+**BitArmory.ReCaptcha** is a minimal library that works across all **.NET** web frameworks without taking a hard dependency on the underlying web framework. If you want to leverage platform specific features on your platform, like **MVC** ***Action Filters*** you'll need to implement your own `ActionFilter`.
 
 #### Supported Platforms
 * **.NET Standard 1.3** or later
