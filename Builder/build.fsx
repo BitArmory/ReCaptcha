@@ -204,13 +204,12 @@ let RunTests() =
                             ShadowCopy = false
                             ResultSpecs = [Files.TestResultFile]
                             ErrorLevel = TestRunnerErrorLevel.Error }) 
-    
-    
+
+open Fake.AppVeyor
 
 Target "ci" (fun _ ->
     
     trace "ci Task"
-
 )
 
 Target "test" (fun _ ->
@@ -221,6 +220,7 @@ Target "test" (fun _ ->
 Target "citest" (fun _ ->
     trace "CI TEST"
     RunTests()
+    AppVeyor.UploadTestResultsXml TestResultsType.NUnit3 Folders.Test
 )
 
 
