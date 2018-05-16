@@ -28,6 +28,8 @@ let Projects = Setup.Projects(ProjectName, Folders)
 
 let TestProject = TestProject("BitArmory.ReCaptcha.Tests", Folders)
 
+let SignAssembly = false //BuildContext.IsTaggedBuild
+
 
 let NugetProjects = [
                        NugetProject("BitArmory.ReCaptcha", "BitArmory.ReCaptcha for .NET", Folders)
@@ -43,7 +45,7 @@ Target "msb" (fun _ ->
 
     let buildProps = [ 
                         "AssemblyOriginatorKeyFile", Projects.SnkFile
-                        "SignAssembly", BuildContext.IsTaggedBuild.ToString()
+                        "SignAssembly", SignAssembly.ToString()
                      ]
    
     // USE SOLUTION FILE WITH MSBUILD, ESPEICALLY WITH MULTI_TARGET BUILDS THAT HAVE:
@@ -161,7 +163,7 @@ Target "BuildInfo" (fun _ ->
     for p in AllNugetProjects do
        MakeBuildInfo p p.Folder (fun bip -> 
            { bip with
-               ExtraAttrs = MakeAttributes(BuildContext.IsTaggedBuild) } )
+               ExtraAttrs = MakeAttributes(SignAssembly) })
 
        XmlPokeInnerText p.ProjectFile "/Project/PropertyGroup/Version" BuildContext.FullVersion
 
@@ -239,17 +241,17 @@ Target "setup-snk"(fun _ ->
 
 //build systems, order matters
 "BuildInfo"
-    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
+    =?> ("setup-snk", SignAssembly)
     ==> "msb"
     ==> "zip"
 
 "BuildInfo"
-    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
+    =?> ("setup-snk", SignAssembly)
     ==> "dnx"
     ==> "zip"
 
 "BuildInfo"
-    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
+    =?> ("setup-snk", SignAssembly)
     ==> "zip"
 
 "dnx"
