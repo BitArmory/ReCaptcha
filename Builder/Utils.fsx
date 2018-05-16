@@ -190,13 +190,13 @@ let MakeBuildInfo (project: NugetProject) (projectFolder : string) setParams =
     
     let path = projectFolder @@ "/Properties/AssemblyInfo.cs"
     let infoVersion = sprintf "%s built on %s" BuildContext.FullVersion (bip.DateTime.ToString())
-    let copyright = sprintf "Brian Chavez © %i" (bip.DateTime.Year)
+    let copyright = sprintf "Bit Armory Inc © %i" (bip.DateTime.Year)
 
     let attrs = 
           [
               Attribute.Title project.Title
               Attribute.Product project.Name
-              Attribute.Company "Brian Chavez"  
+              Attribute.Company "Bit Armory Inc"  
               Attribute.Copyright copyright
               Attribute.Version BuildContext.Version
               Attribute.FileVersion BuildContext.Version

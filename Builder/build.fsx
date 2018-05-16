@@ -31,8 +31,6 @@ let TestProject = TestProject("BitArmory.ReCaptcha.Tests", Folders)
 
 let NugetProjects = [
                        NugetProject("BitArmory.ReCaptcha", "BitArmory.ReCaptcha for .NET", Folders)
-                       //NugetProject("BitArmory.ReCaptcha.This", "BitArmory.ReCaptcha for .NET", Folders)
-                       //NugetProject("BitArmory.ReCaptcha.Other", "BitArmory.ReCaptcha for .NET", Folders)
                     ]
 
 

@@ -43,7 +43,7 @@ namespace BitArmory.ReCaptcha.Tests
 
          response.Should().BeTrue();
 
-         server.ShouldHaveCalled(ReCaptchaConstants.VerifyUrl)
+         server.ShouldHaveCalled(Constants.VerifyUrl)
             .WithRequestBody("response=aaaaa&remoteip=bbbb&secret=cccc");
       }
 
@@ -56,7 +56,7 @@ namespace BitArmory.ReCaptcha.Tests
 
          response.Should().BeFalse();
 
-         server.ShouldHaveCalled(ReCaptchaConstants.VerifyUrl)
+         server.ShouldHaveCalled(Constants.VerifyUrl)
             .WithRequestBody("response=aaaaa&remoteip=bbbb&secret=cccc");
       }
    }
