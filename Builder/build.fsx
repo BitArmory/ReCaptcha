@@ -1,7 +1,7 @@
 
 // include Fake lib
-#I @"packages/build/FAKE/tools"
-#I @"packages/build/DotNetZip/lib/net20"
+#I @"../packages/build/FAKE/tools"
+#I @"../packages/build/DotNetZip/lib/net20"
 #r @"FakeLib.dll"
 #r @"DotNetZip.dll"
 

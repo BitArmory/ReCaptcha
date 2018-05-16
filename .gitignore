@@ -19,6 +19,9 @@ __test
 /__compile
 /Source/*.snk
 /Source/Coinbase.Tests/.secrets.txt
+/packages
+/.paket
+
 
 Source/Builder/node_modules/**
 

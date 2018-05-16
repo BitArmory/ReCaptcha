@@ -1,9 +1,9 @@
 ﻿module Utils
 
 // include Fake lib
-#load @".paket/load/build/build.group.fsx"
+#load @"../.paket/load/build/build.group.fsx"
 
-#I @"packages/build/FAKE/tools"
+#I @"../packages/build/FAKE/tools"
 #r @"FakeLib.dll"
 
 open Fake
