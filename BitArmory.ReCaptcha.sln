@@ -9,6 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitArmory.ReCaptcha.Tests",
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Builder", "Builder\Builder.fsproj", "{2E878DDF-5585-48F2-85E0-748579278C9A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E40DBC2-2A92-49D4-A29C-7EC6E4973211}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
+		HISTORY.md = HISTORY.md
+		paket.dependencies = paket.dependencies
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
