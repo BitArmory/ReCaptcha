@@ -84,7 +84,7 @@ module Setup =
     type Projects(projectName : string, folders : Folders) = 
         let solutionFile = folders.Source @@ sprintf "%s.sln" projectName
 
-        let snkName = projectName.GetBefore(".")
+        let snkName = projectName
         let snkFile = folders.Source @@ sprintf "%s.snk" snkName
         let snkFilePublic = folders.Source @@ sprintf "%s.snk.pub" snkName
 
