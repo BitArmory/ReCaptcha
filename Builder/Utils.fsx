@@ -201,7 +201,7 @@ let MakeBuildInfo (project: NugetProject) (projectFolder : string) setParams =
               Attribute.Version BuildContext.Version
               Attribute.FileVersion BuildContext.Version
               Attribute.InformationalVersion infoVersion
-              Attribute.Trademark "Commercial License"
+              Attribute.Trademark "MIT License"
           ]
 
     CreateCSharpAssemblyInfo path (attrs @ bip.ExtraAttrs)
