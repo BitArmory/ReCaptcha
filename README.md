@@ -18,7 +18,7 @@ This is a minimal library that works across all **.NET** technology frameworks w
 * **.NET Framework 4.5** or later
 
 #### Crypto Tip Jar
-<a href="https://commerce.coinbase.com/checkout/f78fc08f-f34f-40c5-8262-8595c3492f3a"><img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/Docs/tipjar.png" /></a>
+<a href="https://commerce.coinbase.com/checkout/f78fc08f-f34f-40c5-8262-8595c3492f3a"><img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/tipjar.png" /></a>
 * :dog2: **Dogecoin**: `DGVC2drEMt41sEzEHSsiE3VTrgsQxGn5qe`
 
 
