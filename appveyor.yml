@@ -1,10 +1,6 @@
 version: '{build}'
 image: Visual Studio 2017
 
-environment:
-  SNKFILE_SECRET: #SecretDatabase.kdbx / OpenSource / BitArmory.ReCaptcha.snk.enc
-    secure: aI1aWcbLrBcKkPZ+7fFcIuIghnYIPm14tS6AxOrdsM9RO0E3ZNlIiImCtmc+/isMcyg8lXWMP4RbSYKOcWkb5Y7rElfAtuQB1c4WS47sm/8=
-
 skip_commits:
   message: /(//skip\W*ci)|(read\W*me)/
 

@@ -239,17 +239,17 @@ Target "setup-snk"(fun _ ->
 
 //build systems, order matters
 "BuildInfo"
-    =?> ("setup-snk", BuildContext.IsTaggedBuild)
+    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
     ==> "msb"
     ==> "zip"
 
 "BuildInfo"
-    =?> ("setup-snk", BuildContext.IsTaggedBuild)
+    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
     ==> "dnx"
     ==> "zip"
 
 "BuildInfo"
-    =?> ("setup-snk", BuildContext.IsTaggedBuild)
+    //=?> ("setup-snk", BuildContext.IsTaggedBuild)
     ==> "zip"
 
 "dnx"
