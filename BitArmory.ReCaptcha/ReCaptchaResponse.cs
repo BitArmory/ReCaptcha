@@ -16,7 +16,7 @@ namespace BitArmory.ReCaptcha
    /// <summary>
    /// Response from reCAPTCHA verify URL.
    /// </summary>
-   public class ReCaptchaResponse : Json
+   public class ReCaptcha2Response : Json
    {
       [JsonProperty("success")]
       public bool IsSuccess { get; set; }
@@ -33,4 +33,28 @@ namespace BitArmory.ReCaptcha
       [JsonProperty("apk_package_name")]
       public string ApkPackageName { get; set; }
    }
+   /// <summary>
+   /// Response from reCAPTCHA verify URL.
+   /// </summary>
+   public class ReCaptcha3Response : Json
+   {
+      [JsonProperty("success")]
+      public bool IsSuccess { get; set; }
+
+      [JsonProperty("score")]
+      public float Score { get; set; }
+
+      [JsonProperty("action")]
+      public string Action { get; set; }
+
+      [JsonProperty("challenge_ts")]
+      public string ChallengeTs { get; set; }
+
+      [JsonProperty("error-codes")]
+      public string[] ErrorCodes { get; set; }
+
+      [JsonProperty("hostname")]
+      public string HostName { get; set; }
+   }
+
 }

@@ -36,6 +36,18 @@ You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.
 1. Your `site` key
 2. Your `secret` key
 
+This library both **reCAPTCHA v2** and **reCAPTCHA v3**.
+
+## reCAPTCHA v3
+## Client-side Setup.
+
+On ever page of your website, add the following JavaScript:
+```
+
+```
+
+
+## reCAPTCHA v2
 ### Client-side Setup
 Add the following `<div class="g-recaptcha">` and `<script>` tags to your **HTML** form:
 ```html

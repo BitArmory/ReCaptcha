@@ -15,7 +15,7 @@
       /// </summary>
       public const string JavaScriptUrl = "https://www.google.com/recaptcha/api.js";
 
-      /// <summary>
+      /// <summary>  
       /// Default HTTP header key for reCAPTCHA response.
       /// </summary>
       public const string ClientResponseKey = "g-recaptcha-response";
