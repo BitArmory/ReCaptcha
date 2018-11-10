@@ -33,6 +33,7 @@ namespace BitArmory.ReCaptcha
       [JsonProperty("apk_package_name")]
       public string ApkPackageName { get; set; }
    }
+
    /// <summary>
    /// Response from reCAPTCHA verify URL.
    /// </summary>

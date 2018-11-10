@@ -36,7 +36,7 @@
     <DefineConstants>$(DefineConstants);STANDARD;STANDARD13</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Flurl.Http" Version="2.3.1" />
+    <PackageReference Include="Flurl.Http" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" />
   </ItemGroup>

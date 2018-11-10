@@ -39,7 +39,7 @@ namespace BitArmory.ReCaptcha.Tests
       {
          SetupResponse(true);
 
-         var response = await captcha.VerifyAsync("aaaaa", "bbbb", "cccc");
+         var response = await captcha.Verify2Async("aaaaa", "bbbb", "cccc");
 
          response.Should().BeTrue();
 
@@ -52,7 +52,7 @@ namespace BitArmory.ReCaptcha.Tests
       {
          SetupResponse(false);
 
-         var response = await captcha.VerifyAsync("aaaaa", "bbbb", "cccc");
+         var response = await captcha.Verify2Async("aaaaa", "bbbb", "cccc");
 
          response.Should().BeFalse();
 
