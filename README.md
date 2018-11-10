@@ -39,13 +39,76 @@ You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.
 This library both **reCAPTCHA v2** and **reCAPTCHA v3**.
 
 ## reCAPTCHA v3
-## Client-side Setup.
+### Client-side Setup
 
-On ever page of your website, add the following JavaScript:
+On every page of your website, add the following JavaScript:
+```html
+<html>
+  <head>
+    <script src='https://www.google.com/recaptcha/api.js?render=GOOGLE_SITE_KEY'></script>
+  </head>
+  <body>
+    ...
+    <script>
+        grecaptcha.ready(function() {
+          grecaptcha.execute('GOOGLE_SITE_KEY', {action: 'TAG'});
+        });
+    </script>
+  </body>
+</html>
 ```
+Every page should call `grecaptcha.execute` with some unique `action:TAG`. When it's time to validate an **HTTP** `POST` you'll need to do the following:
 
+```html
+<html>
+  <body>
+    <form action='/do-post' method='POST'>
+      <input id="captcha" type="hidden" name="captcha" value="" />
+    </form>
+    <script>
+      grecaptcha.ready(function() {
+        grecaptcha.execute('GOOGLE_SITE_KEY', {action: 'SOME_ACTION'})
+          .then(function(token) {
+             // Set `token` in a hidden form input.
+             $("#captcha").val(token);
+          });
+      });
+    </script>
+  </body>
+</html>
 ```
+### Verifying the POST Server-side
+When the `POST` is received on the server:
+1. Get the client's IP address. If you're using **CloudFlare**, be sure to use the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers).
+2. Extract the `#captcha` value (client token) in the hidden **HTML** form field.
+3. Use the `ReCaptchaService` to verify the client's **reCAPTCHA** is valid.
 
+```csharp
+//1. Get the client IP address in your chosen web framework
+string clientIp = this.HttpContext.Connection.RemoteIpAddress.ToString();
+string token = null;
+string secret = "your_secret_key";
+
+//2. Extract the `#captcha` field from the hidden HTML form in your chosen web framework
+if( this.Request.Form.TryGetValue("captcha", out var formField) )
+{
+   token = formField;
+}
+
+//3. Validate the reCAPTCHA with Google
+var captchaApi = new ReCaptchaService();
+var result = await captchaApi.Verify3Async(token, clientIp, secret);
+
+if( !result.IsSuccess || result.Action != "SOME_ACTION" || result.Score < 0.5 )
+{
+   // The POST is not valid
+   return new BadRequestResult();
+}
+else{
+   //continue processing, everything is okay!
+}
+```
+You'll want to make sure the action name you choose for the reuqest is legitmate. The `result.score` is the probably of a human. So, you'll want to make sure you have a `result.Score > 0.5`; anything less is probably a bot.
 
 ## reCAPTCHA v2
 ### Client-side Setup
@@ -80,14 +143,14 @@ string captchaResponse = null;
 string secret = "your_secret_key";
 
 //2. Extract the `g-recaptcha-response` field from the HTML form in your chosen web framework
-if( this.Request.Form.TryGetValue(Constants.ClientResponseKey, out var grr) )
+if( this.Request.Form.TryGetValue(Constants.ClientResponseKey, out var formField) )
 {
-   capthcaResponse = grr;
+   capthcaResponse = formField;
 }
 
 //3. Validate the reCAPTCHA with Google
 var captchaApi = new ReCaptchaService();
-var isValid = await captchaApi.VerifyAsync(capthcaResponse, clientIp, secret);
+var isValid = await captchaApi.Verify2Async(capthcaResponse, clientIp, secret);
 if( !isValid )
 {
    this.ModelState.AddModelError("captcha", "The reCAPTCHA is not valid.");
