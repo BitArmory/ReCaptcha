@@ -41,7 +41,9 @@ This library both **reCAPTCHA v2** and **reCAPTCHA v3**.
 ## reCAPTCHA v3
 ### Client-side Setup
 
-On every page of your website, add the following JavaScript:
+Be sure to checkout [this video that describes how reCAPTCHA v3 works](https://www.youtube.com/watch?v=tbvxFW4UJdU) before implementing.
+
+Then, on every page of your website, add the following JavaScript:
 ```html
 <html>
   <head>
@@ -57,7 +59,7 @@ On every page of your website, add the following JavaScript:
   </body>
 </html>
 ```
-Every page should call `grecaptcha.execute` with some unique `action:TAG`. When it's time to validate an **HTTP** `POST` you'll need to do the following:
+Every page should call `grecaptcha.execute` with some unique **action** `TAG`. [Read more about actions in the official docs here](https://developers.google.com/recaptcha/docs/v3#actions). When it's time to validate an **HTTP** `POST` you'll need to do the following:
 
 ```html
 <html>
