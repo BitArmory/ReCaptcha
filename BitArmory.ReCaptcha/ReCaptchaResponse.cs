@@ -1,60 +1,56 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace BitArmory.ReCaptcha
 {
-   public class Json
+   /// <summary>
+   /// Base class for all JSON responses.
+   /// </summary>
+   public class JsonResponse
    {
       /// <summary>
       /// Extra data for/from the JSON serializer/deserializer to included with the object model.
       /// </summary>
-      [JsonExtensionData]
-      public IDictionary<string, JToken> ExtraJson { get; } = new Dictionary<string, JToken>();
+      public IDictionary<string, object> ExtraJson { get; } = new Dictionary<string, object>();
    }
-
+   
    /// <summary>
    /// Response from reCAPTCHA verify URL.
    /// </summary>
-   public class ReCaptcha2Response : Json
+   public class ReCaptcha3Response : JsonResponse
    {
-      [JsonProperty("success")]
+      /// <summary>
+      /// Whether this request was a valid reCAPTCHA token for your site
+      /// </summary>
       public bool IsSuccess { get; set; }
 
-      [JsonProperty("challenge_ts")]
-      public string ChallengeTs { get; set; }
-
-      [JsonProperty("error-codes")]
-      public string[] ErrorCodes { get; set; }
-
-      [JsonProperty("hostname")]
-      public string HostName { get; set; }
-
-      [JsonProperty("apk_package_name")]
-      public string ApkPackageName { get; set; }
-   }
-
-   /// <summary>
-   /// Response from reCAPTCHA verify URL.
-   /// </summary>
-   public class ReCaptcha3Response : Json
-   {
-      [JsonProperty("success")]
-      public bool IsSuccess { get; set; }
-
-      [JsonProperty("score")]
+      /// <summary>
+      /// The score for this request (0.0 - 1.0)
+      /// </summary>
       public float Score { get; set; }
 
-      [JsonProperty("action")]
+      /// <summary>
+      /// The action name for this request (important to verify)
+      /// </summary>
       public string Action { get; set; }
 
-      [JsonProperty("challenge_ts")]
+      /// <summary>
+      /// Timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+      /// </summary>
       public string ChallengeTs { get; set; }
 
-      [JsonProperty("error-codes")]
+      /// <summary>
+      /// missing-input-secret: The secret parameter is missing.
+      /// invalid-input-secret: The secret parameter is invalid or malformed.
+      /// missing-input-response: The response parameter is missing.
+      /// invalid-input-response: The response parameter is invalid or malformed.
+      /// bad-request: The request is invalid or malformed.
+      /// timeout-or-duplicate: The response is no longer valid: either is too old or has been used previously.
+      /// </summary>
       public string[] ErrorCodes { get; set; }
 
-      [JsonProperty("hostname")]
+      /// <summary>
+      /// The hostname of the site where the reCAPTCHA was solved
+      /// </summary>
       public string HostName { get; set; }
    }
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A simple, no-drama, reCAPTCHA validation library that works with ASP.NET Core, Razor Pages, MVC 5, and WebForms.</Description>
     <PackageReleaseNotes>
@@ -36,8 +36,9 @@
     <DefineConstants>$(DefineConstants);STANDARD;STANDARD13</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Flurl.Http" Version="2.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup  Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 </Project>
