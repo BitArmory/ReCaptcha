@@ -167,6 +167,8 @@ namespace BitArmory.ReCaptcha
       /// Enable HTTP debugging via Fiddler. Ensure Tools > Fiddler Options... > Connections is enabled and has a port configured.
       /// Then, call this method with the following URL format: http://localhost.:PORT where PORT is the port number Fiddler proxy
       /// is listening on. (Be sure to include the period after the localhost).
+      /// Note, calling this method will replace the object in <seealso cref="HttpClient"/> property.
+      /// with a correctly configured HttpClient for proxy usage.
       /// </summary>
       /// <param name="proxyUrl">The full proxy URL Fiddler proxy is listening on. IE: http://localhost.:8888 - The period after localhost is important to include.</param>
       public void EnableFiddlerDebugProxy(string proxyUrl)
