@@ -36,7 +36,7 @@ You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.
 1. Your `site` key
 2. Your `secret` key
 
-This library both **reCAPTCHA v2** and **reCAPTCHA v3**.
+This library both [**reCAPTCHA v2**](#recaptcha-v2) and [**reCAPTCHA v3**](#recaptcha-v3).
 
 ## reCAPTCHA v3
 ### Client-side Setup
