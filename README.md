@@ -110,7 +110,7 @@ else{
    //continue processing, everything is okay!
 }
 ```
-You'll want to make sure the action name you choose for the reuqest is legitmate. The `result.score` is the probably of a human. So, you'll want to make sure you have a `result.Score > 0.5`; anything less is probably a bot.
+You'll want to make sure the action name you choose for the request is legitimate. The `result.score` is the probably of a human. So, you'll want to make sure you have a `result.Score > 0.5`; anything less is probably a bot.
 
 ## reCAPTCHA v2
 ### Client-side Setup
