@@ -1,4 +1,7 @@
 ## v4.0.0
+* Uses SourceLink for F12 navigation in Visual Studio.
+
+## v4.0.0
 * Removed Newtonsoft.Json dependency.
 * Removed Flurl.Http dependency.
 * Refactored internals to work without dependencies. Underlying implementation uses `HttpClient` in the BCL. 

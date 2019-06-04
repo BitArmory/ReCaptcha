@@ -375,11 +375,9 @@ module Helpers =
                Configuration = "Release"
                WorkingDir = np.Folder
                OutputPath = output
-               AdditionalArgs = [
-                                  "--include-symbols"
-                                  "--include-source"
-                                 ]
+               AdditionalArgs = []
            })
+
 
     let DotnetBuild (np: NugetProject) (tag: string) = 
         let frameworks = np.GetTargetFrameworks()
