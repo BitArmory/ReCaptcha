@@ -173,7 +173,7 @@ Target.create "BuildInfo" (fun _ ->
 
 Target.description "PROJECT CLEAN TASK"
 Target.create "Clean" (fun _ ->
-    File.delete Files.TestResultFile
+    
     Shell.cleanDirs [Folders.CompileOutput; Folders.Package;]
 
     for p in AllNugetProjects do
