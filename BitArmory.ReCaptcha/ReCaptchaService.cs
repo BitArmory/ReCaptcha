@@ -15,7 +15,14 @@ namespace BitArmory.ReCaptcha
    /// </summary>
    public class ReCaptchaService : IDisposable
    {
+      /// <summary>
+      /// The underlying HTTP client used to make the request.
+      /// </summary>
       public HttpClient HttpClient { get; set; }
+
+      /// <summary>
+      /// The default HTTP client to use for new instances of the <see cref="ReCaptchaService"/>.
+      /// </summary>
       public static HttpClient DefaultHttpClient { get; set; } = new HttpClient();
 
       private readonly string verifyUrl;
@@ -66,7 +73,7 @@ namespace BitArmory.ReCaptcha
       }
 
       /// <summary>
-      /// Validate reCAPTCHA v3 <paramref name="token"/> using your secret.
+      /// Validate reCAPTCHA v3 <paramref name="clientToken"/> using your secret.
       /// </summary>
       /// <param name="clientToken">Required. The user response token provided by the reCAPTCHA client-side integration on your site. The <seealso cref="Constants.ClientResponseKey"/> value pulled from the client with the request headers or hidden form field.</param>
       /// <param name="remoteIp">Optional. The remote IP of the client</param>

@@ -1,6 +1,10 @@
 version: '{build}'
 image: Visual Studio 2017
 
+environment:
+  SNKFILE_SECRET: #THE WARDEN OF THE NORTH
+    secure: 3P4OS4SqlfLaUkiCCN8xVpE6gIE3tNvcbf3mkO58u3u3x9mDyoUa5tcedEKmLEKjmxPVQq+7gC5PqOwy/nn79UpjZdniGX3AdqRqz9edSjs=
+
 skip_commits:
   message: /(//skip\W*ci)|(read\W*me)/
 

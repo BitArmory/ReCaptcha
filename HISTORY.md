@@ -1,5 +1,6 @@
-## v4.0.0
+## v5.0.0
 * Uses SourceLink for F12 navigation in Visual Studio.
+* The `BitArmory.ReCaptcha.dll` assembly is now signed.
 
 ## v4.0.0
 * Removed Newtonsoft.Json dependency.
