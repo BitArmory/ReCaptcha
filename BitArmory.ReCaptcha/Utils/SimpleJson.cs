@@ -1,3 +1,5 @@
+#pragma warning disable CS1591
+
 /* * * * *
  * A simple JSON Parser / builder
  * ------------------------------
