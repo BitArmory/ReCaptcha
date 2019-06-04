@@ -173,8 +173,8 @@ Target.create "BuildInfo" (fun _ ->
 
 Target.description "PROJECT CLEAN TASK"
 Target.create "Clean" (fun _ ->
-    
-    Shell.cleanDirs [Folders.CompileOutput; Folders.Package;]
+
+    Shell.cleanDirs [Folders.CompileOutput; Folders.Package; Folders.Test;]
 
     for p in AllNugetProjects do
        Xml.pokeInnerText p.ProjectFile "/Project/PropertyGroup/Version" "0.0.0-localbuild"
@@ -208,14 +208,20 @@ Target.create "test" (fun _ ->
 Target.description "CI TEST TASK"
 Target.create "citest" (fun _ ->
    Trace.trace "CI TEST"
-    
+   
+   let loggerArgs = sprintf "nunit;LogFilePath=%s" (Folders.Test @@ "{framework}.test-result.xml")
+
    let config (opts: DotNet.TestOptions) =
       {opts with
             NoBuild = true
-            Logger = Some "Appveyor"
+            Logger = Some loggerArgs
             TestAdapterPath = Some "." }
    
    DotNet.test config TestProject.Folder
+
+   !!(Folders.Test @@ "*.test-result.xml")
+   |> Seq.iter( Trace.publish( ImportData.Nunit NunitDataVersion.Nunit3 ) )
+  
 )
 
 Target.description "PROJECT SIGNING KEY SETUP TASK"

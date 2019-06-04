@@ -1,20 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A simple, no-drama, reCAPTCHA validation library that works with ASP.NET Core, Razor Pages, MVC 5, and WebForms.</Description>
-    <PackageReleaseNotes>## v4.0.0
-* Uses SourceLink for F12 navigation in Visual Studio.
-
-## v4.0.0
-* Removed Newtonsoft.Json dependency.
-* Removed Flurl.Http dependency.
-* Refactored internals to work without dependencies. Underlying implementation uses `HttpClient` in the BCL. 
-
-## v3.0.0
-* Support for reCAPTCHA v3. 
-
-## v1.0.0
-* Initial release.
-Full History Here: https://github.com/BitArmory/ReCaptcha/blob/master/HISTORY.md</PackageReleaseNotes>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
     <Version>0.0.0-localbuild</Version>
     <Authors>Brian Chavez</Authors>
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>

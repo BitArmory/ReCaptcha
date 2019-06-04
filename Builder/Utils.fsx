@@ -92,12 +92,13 @@ module Setup =
 
     type Files(projectName : string, folders : Folders) =
         let history = folders.WorkingFolder @@ "HISTORY.md"
-
+        
         let solutionFile = folders.Source @@ sprintf "%s.sln" projectName
         let snkFile = folders.Source @@ sprintf "%s.snk" projectName
         let snkFilePublic = folders.Source @@ sprintf "%s.snk.pub" projectName 
       
         member this.History = history
+        
 
         member this.SolutionFile = solutionFile
         member this.SnkFile = snkFile

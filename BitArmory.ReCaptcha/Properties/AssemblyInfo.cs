@@ -6,10 +6,10 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("BitArmory.ReCaptcha for .NET")]
 [assembly: AssemblyProduct("BitArmory.ReCaptcha")]
 [assembly: AssemblyCompany("Bit Armory Inc")]
-[assembly: AssemblyCopyright("Bit Armory Inc © 2019")]
+[assembly: AssemblyCopyright("Bit Armory Inc © 2015")]
 [assembly: AssemblyVersion("0.0.0")]
 [assembly: AssemblyFileVersion("0.0.0")]
-[assembly: AssemblyInformationalVersion("0.0.0 built on 6/4/2019 8:28:24 AM")]
+[assembly: AssemblyInformationalVersion("0.0.0-localbuild built on 1/1/2015 12:00:00 AM")]
 [assembly: AssemblyTrademark("MIT License")]
 [assembly: AssemblyDescription("https://github.com/BitArmory/ReCaptcha")]
 [assembly: InternalsVisibleTo("BitArmory.ReCaptcha.Tests")]
@@ -18,10 +18,10 @@ namespace System {
         internal const System.String AssemblyTitle = "BitArmory.ReCaptcha for .NET";
         internal const System.String AssemblyProduct = "BitArmory.ReCaptcha";
         internal const System.String AssemblyCompany = "Bit Armory Inc";
-        internal const System.String AssemblyCopyright = "Bit Armory Inc © 2019";
+        internal const System.String AssemblyCopyright = "Bit Armory Inc © 2015";
         internal const System.String AssemblyVersion = "0.0.0";
         internal const System.String AssemblyFileVersion = "0.0.0";
-        internal const System.String AssemblyInformationalVersion = "0.0.0 built on 6/4/2019 8:28:24 AM";
+        internal const System.String AssemblyInformationalVersion = "0.0.0-localbuild built on 1/1/2015 12:00:00 AM";
         internal const System.String AssemblyTrademark = "MIT License";
         internal const System.String AssemblyDescription = "https://github.com/BitArmory/ReCaptcha";
         internal const System.String InternalsVisibleTo = "BitArmory.ReCaptcha.Tests";
