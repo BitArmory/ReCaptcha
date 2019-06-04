@@ -191,11 +191,6 @@ Target.create "Clean" (fun _ ->
 
 )
 
-let RunTests() =
-   let config (opts: DotNet.TestOptions) =
-      {opts with  
-            NoBuild = true }
-   DotNet.test config TestProject.Folder
 
 Target.create "ci" (fun _ ->
     Trace.trace "ci Task"
@@ -203,14 +198,24 @@ Target.create "ci" (fun _ ->
 
 Target.description "PROJECT TEST TASK"
 Target.create "test" (fun _ ->
-    Trace.trace "TEST"
-    RunTests()
+   Trace.trace "TEST"
+   let config (opts: DotNet.TestOptions) =
+      {opts with  
+            NoBuild = true }
+   DotNet.test config TestProject.Folder
 )
 
 Target.description "CI TEST TASK"
 Target.create "citest" (fun _ ->
-    Trace.trace "CI TEST"
-    RunTests()   
+   Trace.trace "CI TEST"
+    
+   let config (opts: DotNet.TestOptions) =
+      {opts with
+            NoBuild = true
+            Logger = Some "Appveyor"
+            TestAdapterPath = Some "." }
+   
+   DotNet.test config TestProject.Folder
 )
 
 Target.description "PROJECT SIGNING KEY SETUP TASK"
