@@ -3,7 +3,6 @@ open Fake.DotNet
 open Fake.Runtime
 
 #nowarn "52"
-#nowarn "1182"
 
 #load ".\\.fake\\build.fsx\\intellisense.fsx"
 
@@ -50,8 +49,7 @@ module BuildContext =
     let IsTaggedBuild =
         Fake.BuildServer.AppVeyor.Environment.RepoTag
     
-    let IsRelease =
-      (IsTaggedBuild)
+    let IsRelease = IsTaggedBuild
 
 open System
 open System.IO
@@ -221,8 +219,8 @@ open System.Reflection
 
 let DynInvoke (instance : obj) (methodName : string) (args : obj[]) =
     let objType = instance.GetType();
-    let invoke = objType.InvokeMember(methodName, BindingFlags.Instance ||| BindingFlags.Public ||| BindingFlags.InvokeMethod, null, instance, args )
-    ()
+    objType.InvokeMember(methodName, BindingFlags.Instance ||| BindingFlags.Public ||| BindingFlags.InvokeMethod, null, instance, args )
+    |> ignore
 
 
 module History =
