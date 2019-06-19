@@ -139,7 +139,7 @@ else{
 
 ```csharp
 public string GetClientIpAddress(){
-  this.HttpContext.Connection.RemoteIpAddress.ToString();
+   return this.HttpContext.Connection.RemoteIpAddress.ToString();
 }
 ```
 
@@ -153,7 +153,7 @@ public string GetClientIpAddress(){
 
 ```csharp
 public string GetClientIpAddress(){
-  return this.Request.UserHostAddress;
+   return this.Request.UserHostAddress;
 }
 ```
 
@@ -220,7 +220,7 @@ else{
 
 ```csharp
 public string GetClientIpAddress(){
-  this.HttpContext.Connection.RemoteIpAddress.ToString();
+   return this.HttpContext.Connection.RemoteIpAddress.ToString();
 }
 ```
 
@@ -234,7 +234,7 @@ public string GetClientIpAddress(){
 
 ```csharp
 public string GetClientIpAddress(){
-  return this.Request.UserHostAddress;
+   return this.Request.UserHostAddress;
 }
 ```
 
