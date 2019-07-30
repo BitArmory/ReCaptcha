@@ -17,6 +17,10 @@ Furthermore, current **reCAPTCHA** libraries for **.NET** are hard coded against
 * **.NET Standard 1.3** or later
 * **.NET Framework 4.5** or later
 
+#### Supported reCAPTCHA Versions
+* [**reCAPTCHA v2 (I'm not a robot)**][2] 
+* [**reCAPTCHA v3 (Invisible)**][3]
+
 #### Crypto Tip Jar
 <a href="https://commerce.coinbase.com/checkout/f78fc08f-f34f-40c5-8262-8595c3492f3a"><img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/tipjar.png" /></a>
 * :dog2: **Dogecoin**: `DGVC2drEMt41sEzEHSsiE3VTrgsQxGn5qe`
@@ -36,6 +40,7 @@ Various full and complete examples can be found here:
 #### reCAPTCHA v3 (Invisible)
 * [ASP.NET WebForms for Full Framework](https://github.com/BitArmory/ReCaptcha/tree/master/Examples/ReCaptchaV3.WebForms)
 
+
 General Usage
 -------------
 ### Getting Started
@@ -43,7 +48,10 @@ You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.
 1. Your `site` key
 2. Your `secret` key
 
-This library supports both [**reCAPTCHA v2 (I'm not a robot)**][2] and [**reCAPTCHA v3 (Invisible)**][3].
+This library supports both: 
+* [**reCAPTCHA v2 (I'm not a robot)**][2] 
+* [**reCAPTCHA v3 (Invisible)**][3].
+
 
 ## reCAPTCHA v3 (Invisible)
 ### Client-side Setup
