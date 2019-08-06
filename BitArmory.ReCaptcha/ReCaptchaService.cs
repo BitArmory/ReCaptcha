@@ -56,7 +56,7 @@ namespace BitArmory.ReCaptcha
       public virtual async Task<bool> Verify2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
       {
          if (string.IsNullOrWhiteSpace(siteSecret)) throw new ArgumentException("The secret must not be null or empty", nameof(siteSecret));
-         if (string.IsNullOrWhiteSpace(clientToken)) throw new ArgumentException("The client response must not be null or empty", nameof(siteSecret));
+         if (string.IsNullOrWhiteSpace(clientToken)) throw new ArgumentException("The client response must not be null or empty", nameof(clientToken));
 
          var form = PrepareRequestBody(clientToken, siteSecret, remoteIp);
 
@@ -82,7 +82,7 @@ namespace BitArmory.ReCaptcha
       public virtual async Task<ReCaptcha3Response> Verify3Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
       {
          if( string.IsNullOrWhiteSpace(siteSecret) ) throw new ArgumentException("The secret must not be null or empty", nameof(siteSecret));
-         if( string.IsNullOrWhiteSpace(clientToken) ) throw new ArgumentException("The client response must not be null or empty", nameof(siteSecret));
+         if( string.IsNullOrWhiteSpace(clientToken) ) throw new ArgumentException("The client response must not be null or empty", nameof(clientToken));
 
 
          var form = PrepareRequestBody(clientToken, siteSecret, remoteIp);

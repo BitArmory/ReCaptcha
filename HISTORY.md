@@ -1,6 +1,7 @@
 ## v5.0.0
 * Uses SourceLink for F12 navigation in Visual Studio.
 * The `BitArmory.ReCaptcha.dll` assembly is now signed.
+* Issue 4: Fixed wrong parameter name in exception when clientToken is null or whitespace.
 
 ## v4.0.0
 * Removed Newtonsoft.Json dependency.
