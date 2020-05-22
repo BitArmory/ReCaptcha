@@ -25,6 +25,8 @@ test_script:
 artifacts:
   - path: __package\*.nupkg
     name: NuGet
+  - path: __package\*.snupkg
+    name: Symbols
   - path: __package\*.zip
     name: Zip
 
@@ -37,7 +39,7 @@ deploy:
       tag: $(APPVEYOR_REPO_TAG_NAME)
       description: '[**CHANGE LOG**](https://github.com/BitArmory/ReCaptcha/blob/master/HISTORY.md)'
       prerelease: $(IsPreRelease)
-      artifact: Zip, NuGet
+      artifact: Zip, NuGet, Symbols
       auth_token:
           secure: orpmAg4FCSTLlblm4O4HfRuUosiP8Mnxeib0vshgZO0p2nFzKju1FiY6jkVkZBMy
       on:
@@ -46,9 +48,12 @@ deploy:
           appveyor_repo_tag: true
 
     - provider: NuGet
+      server:
+      symbol_server:
+      skip_symbols: false
       api_key:
           secure: G63UldsDJHqas45sJlBFkCQ43nKPacvRz7WUzdC8cbJTKP0jQVqZiDGnjNR9i6ee
-      artifact: NuGet
+      artifact: NuGet, Symbols
       on:
           branch: master
           appveyor_repo_tag_name: /v\d+\.\d+\.\d+/
