@@ -19,12 +19,12 @@ namespace BitArmory.ReCaptcha
    public class ReCaptcha3Response : JsonResponse
    {
       /// <summary>
-      /// Whether this request was a valid reCAPTCHA token for your site
+      /// Whether this request was a valid reCAPTCHA token for your site.
       /// </summary>
       public bool IsSuccess { get; set; }
 
       /// <summary>
-      /// The score for this request (0.0 - 1.0)
+      /// The score for this request. Value ranges between 0.0 and 1.0; where 0.0 is very likely a bot and 1.0 is very likely a good human interaction.
       /// </summary>
       public float Score { get; set; }
 
