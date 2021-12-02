@@ -1,5 +1,5 @@
 version: '{build}'
-image: Visual Studio 2017
+image: Visual Studio 2022
 
 environment:
   SNKFILE_SECRET: #THE WARDEN OF THE NORTH
