@@ -253,13 +253,13 @@ public string GetClientIpAddress(){
 
 That's it! **Happy verifying!** :tada:
 
-### Cloudflare Turnstile
+## Cloudflare Turnstile
 
 [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) is an alternative to reCAPTCHA, providing a very similar interface to reCAPTCHA v2, which doesn't require user intereaction unless the visitor is suspected of being a bot.
 
 After following the [instructions](https://developers.cloudflare.com/turnstile/get-started/) to get the client ready, and to generate your secret key, verifying the resposne on the server side is easy.
 
-#### Client Side
+### Client Side
 
 More detailed instructions, including theming, can be found at
 [https://developers.cloudflare.com/turnstile/get-started/](https://developers.cloudflare.com/turnstile/get-started/).
@@ -278,7 +278,7 @@ And then insert the widget:
 
 The *data-action* attribute can be verified later, on the server side.
 
-#### Server Side
+### Server Side
 
 ```csharp
 // 1. Get the client IP address in your chosen web framework
