@@ -151,5 +151,46 @@ namespace BitArmory.ReCaptcha.Tests
 
          mockHttp.VerifyNoOutstandingExpectation();
       }
+
+      [Test]
+      public async Task can_parse_full_v2_response()
+      {
+         var responseJson = @"{
+  ""success"": true,
+  ""challenge_ts"": ""2018-05-15T23:05:22Z"",
+  ""hostname"": ""example.net"",
+  ""action"": ""test-action"",
+  ""apk_package_name"": ""test-package"",
+  ""cdata"": ""customer data""
+}";
+         var mockHttp = new MockHttpMessageHandler();
+         mockHttp.Expect(HttpMethod.Post, Constants.TurnstileVerifyUrl)
+            .Respond("application/json", responseJson)
+            .WithExactFormData("response=aaaaa&remoteip=bbbb&secret=cccc");
+         var captcha = new ReCaptchaService(Constants.TurnstileVerifyUrl, client: mockHttp.ToHttpClient());
+
+         var response = await captcha.Response2Async("aaaaa", "bbbb", "cccc");
+         response.IsSuccess.Should().BeTrue();
+         response.ChallengeTs.Should().Be("2018-05-15T23:05:22Z");
+         response.HostName.Should().Be("example.net");
+         response.Action.Should().Be("test-action");
+         response.ApkPackageName.Should().Be("test-package");
+         response.CData.Should().Be("customer data");
+
+         responseJson = ResponseJson(false);
+         mockHttp = new MockHttpMessageHandler();
+         mockHttp.Expect(HttpMethod.Post, Constants.VerifyUrl)
+            .Respond("application/json", responseJson)
+            .WithExactFormData("response=aaaaa&remoteip=bbbb&secret=cccc");
+         captcha = new ReCaptchaService(client: mockHttp.ToHttpClient());
+
+         response = await captcha.Response2Async("aaaaa", "bbbb", "cccc");
+         response.IsSuccess.Should().BeFalse();
+         response.ChallengeTs.Should().Be("2018-05-15T23:05:22Z");
+         response.HostName.Should().Be("localhost");
+         response.Action.Should().Be(null);
+         response.ApkPackageName.Should().Be(null);
+         response.CData.Should().Be(null);
+      }
    }
 }
