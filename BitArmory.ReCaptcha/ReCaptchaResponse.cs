@@ -26,7 +26,7 @@ namespace BitArmory.ReCaptcha
       /// <summary>
       /// The action name for this request, only provided by Cloudflare Turnstile, not reCAPTCHA v2 (important to verify).
       /// </summary>
-      public string? Action { get; set; }
+      public string Action { get; set; }
 
       /// <summary>
       /// Timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ).
@@ -46,19 +46,19 @@ namespace BitArmory.ReCaptcha
       /// <summary>
       /// The hostname of the site where the reCAPTCHA was solved (if solved on a website).
       /// </summary>
-      public string? HostName { get; set; }
+      public string HostName { get; set; }
 
       /// <summary>
       /// ApkPackageName is the package name of the app the captcha was solved on (if solved in an android app).
       /// </summary>
-      public string? ApkPackageName { get; set; }
+      public string ApkPackageName { get; set; }
 
       /// <summary>
       /// Customer data passed on the client side.
       ///
       /// Only provided by Cloudflare Turnstile, not reCAPTCHA v2.
       /// </summary>
-      public string? CData { get; set; }
+      public string CData { get; set; }
    }
    
    /// <summary>
@@ -99,12 +99,12 @@ namespace BitArmory.ReCaptcha
       /// <summary>
       /// The hostname of the site where the reCAPTCHA was solved (if solved on a website).
       /// </summary>
-      public string? HostName { get; set; }
+      public string HostName { get; set; }
 
       /// <summary>
       /// ApkPackageName is the package name of the app the captcha was solved on (if solved in an android app).
       /// </summary>
-      public string? ApkPackageName { get; set; }
+      public string ApkPackageName { get; set; }
    }
 
 }

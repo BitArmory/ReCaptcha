@@ -53,7 +53,7 @@ namespace BitArmory.ReCaptcha
       /// <param name="siteSecret">Required. The server-side secret: v2 secret, invisible secret, or android secret. The shared key between your site and reCAPTCHA.</param>
       /// <param name="cancellationToken">Async cancellation token.</param>
       /// <returns>Task returning the parsed JSON response, or null if the request wasn't successful.</returns>
-      async Task<JsonNode?> JsonResponse2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
+      async Task<JsonNode> JsonResponse2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
       {
          if (string.IsNullOrWhiteSpace(siteSecret)) throw new ArgumentException("The secret must not be null or empty", nameof(siteSecret));
          if (string.IsNullOrWhiteSpace(clientToken)) throw new ArgumentException("The client response must not be null or empty", nameof(clientToken));
