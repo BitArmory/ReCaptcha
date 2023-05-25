@@ -259,6 +259,27 @@ That's it! **Happy verifying!** :tada:
 
 After following the [instructions](https://developers.cloudflare.com/turnstile/get-started/) to get the client ready, and to generate your secret key, verifying the resposne on the server side is easy.
 
+#### Client Side
+
+More detailed instructions, including theming, can be found at
+[https://developers.cloudflare.com/turnstile/get-started/](https://developers.cloudflare.com/turnstile/get-started/).
+
+In short, you want to include the JavaScript in the `<head>`:
+
+```html
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+```
+
+And then insert the widget:
+
+```html
+<div class="cf-turnstile" data-sitekey="your-sitekey" data-action="example-action"></div>
+```
+
+The *data-action* attribute can be verified later, on the server side.
+
+#### Server Side
+
 ```csharp
 // 1. Get the client IP address in your chosen web framework
 string clientIp = GetClientIpAddress();
@@ -284,9 +305,17 @@ else{
 }
 ```
 
-The full response, including `cdata`, can be fetched using `captchaApi.Response2Async(capthcaResponse, clientIp, secret)`.
+The *hostname* and *action* can be (and **should** be) verified by passing the `hostname` and `action` arguments to `captchaApi.Verify2Async`, for example:
 
-Furthermore, the *hostname* and *action* can be (and **should** be) verified by passing the `hostname` and `action` arguments to `captchaApi.Verify2Async`.
+```csharp
+var isValid = await captchaApi.Verify2Async(
+    capthcaResponse, clientIp, secret,
+    hostname: "expected.hostname",
+    action: "example-action",
+);
+```
+
+The full response, including `cdata`, can be fetched using `captchaApi.Response2Async(capthcaResponse, clientIp, secret)`.
 
 
 Building
