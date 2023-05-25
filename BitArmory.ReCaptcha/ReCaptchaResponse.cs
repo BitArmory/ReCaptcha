@@ -14,7 +14,55 @@ namespace BitArmory.ReCaptcha
    }
    
    /// <summary>
-   /// Response from reCAPTCHA verify URL.
+   /// Response from reCAPTCHA v2 or Cloudflare Turnstile verify URL.
+   /// </summary>
+   public class ReCaptcha2Response : JsonResponse
+   {
+      /// <summary>
+      /// Whether this request was a valid reCAPTCHA token for your site.
+      /// </summary>
+      public bool IsSuccess { get; set; }
+
+      /// <summary>
+      /// The action name for this request, only provided by Cloudflare Turnstile, not reCAPTCHA v2 (important to verify).
+      /// </summary>
+      public string Action { get; set; }
+
+      /// <summary>
+      /// Timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ).
+      /// </summary>
+      public string ChallengeTs { get; set; }
+
+      /// <summary>
+      /// missing-input-secret: The secret parameter is missing.
+      /// invalid-input-secret: The secret parameter is invalid or malformed.
+      /// missing-input-response: The response parameter is missing.
+      /// invalid-input-response: The response parameter is invalid or malformed.
+      /// bad-request: The request is invalid or malformed.
+      /// timeout-or-duplicate: The response is no longer valid: either is too old or has been used previously.
+      /// </summary>
+      public string[] ErrorCodes { get; set; }
+
+      /// <summary>
+      /// The hostname of the site where the reCAPTCHA was solved (if solved on a website).
+      /// </summary>
+      public string HostName { get; set; }
+
+      /// <summary>
+      /// ApkPackageName is the package name of the app the captcha was solved on (if solved in an android app).
+      /// </summary>
+      public string ApkPackageName { get; set; }
+
+      /// <summary>
+      /// Customer data passed on the client side.
+      ///
+      /// Only provided by Cloudflare Turnstile, not reCAPTCHA v2.
+      /// </summary>
+      public string CData { get; set; }
+   }
+   
+   /// <summary>
+   /// Response from reCAPTCHA v3 verify URL.
    /// </summary>
    public class ReCaptcha3Response : JsonResponse
    {
@@ -49,9 +97,14 @@ namespace BitArmory.ReCaptcha
       public string[] ErrorCodes { get; set; }
 
       /// <summary>
-      /// The hostname of the site where the reCAPTCHA was solved
+      /// The hostname of the site where the reCAPTCHA was solved (if solved on a website).
       /// </summary>
       public string HostName { get; set; }
+
+      /// <summary>
+      /// ApkPackageName is the package name of the app the captcha was solved on (if solved in an android app).
+      /// </summary>
+      public string ApkPackageName { get; set; }
    }
 
 }

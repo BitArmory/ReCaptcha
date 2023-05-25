@@ -46,14 +46,14 @@ namespace BitArmory.ReCaptcha
       }
 
       /// <summary>
-      /// Validate reCAPTCHA v2 <paramref name="clientToken"/> using your secret.
+      /// Validate reCAPTCHA v2 <paramref name="clientToken"/> and return the json response (for internal use).
       /// </summary>
       /// <param name="clientToken">Required. The user response token provided by the reCAPTCHA client-side integration on your site. The <seealso cref="Constants.ClientResponseKey"/> value pulled from the client with the request headers or hidden form field.</param>
-      /// <param name="remoteIp">Optional. The remote IP of the client</param>
+      /// <param name="remoteIp">Optional. The remote IP of the client.</param>
       /// <param name="siteSecret">Required. The server-side secret: v2 secret, invisible secret, or android secret. The shared key between your site and reCAPTCHA.</param>
       /// <param name="cancellationToken">Async cancellation token.</param>
-      /// <returns>Task returning bool whether reCAPTHCA is valid or not.</returns>
-      public virtual async Task<bool> Verify2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
+      /// <returns>Task returning the parsed JSON response, or null if the request wasn't successful.</returns>
+      async Task<JsonNode> JsonResponse2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
       {
          if (string.IsNullOrWhiteSpace(siteSecret)) throw new ArgumentException("The secret must not be null or empty", nameof(siteSecret));
          if (string.IsNullOrWhiteSpace(clientToken)) throw new ArgumentException("The client response must not be null or empty", nameof(clientToken));
@@ -63,13 +63,93 @@ namespace BitArmory.ReCaptcha
          var response = await this.HttpClient.PostAsync(verifyUrl, form, cancellationToken)
             .ConfigureAwait(false);
 
-         if( !response.IsSuccessStatusCode ) return false;
+         if( !response.IsSuccessStatusCode ) return null;
 
          var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-         var model = Json.Parse(json);
+         return Json.Parse(json);
+      }
 
+      /// <summary>
+      /// Validate reCAPTCHA v2 <paramref name="clientToken"/> using your secret.
+      /// </summary>
+      /// <param name="clientToken">Required. The user response token provided by the reCAPTCHA client-side integration on your site. The <seealso cref="Constants.ClientResponseKey"/> value pulled from the client with the request headers or hidden form field.</param>
+      /// <param name="remoteIp">Optional. The remote IP of the client.</param>
+      /// <param name="siteSecret">Required. The server-side secret: v2 secret, invisible secret, or android secret. The shared key between your site and reCAPTCHA.</param>
+      /// <param name="cancellationToken">Async cancellation token.</param>
+      /// <param name="hostname">Optional. The expected hostname. If not null, the verification will fail if this does not match.</param>
+      /// <param name="action">Optional. The expected action (for Cloudflare Turnstile, this should be null if reCAPTCHA v2 is being used). If not null, the verification will fail if this does not match.</param>
+      /// <returns>Task returning bool whether reCAPTHCA is valid or not.</returns>
+      public virtual async Task<bool> Verify2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default, string hostname = null, string action = null)
+      {
+         var model = await JsonResponse2Async(clientToken, remoteIp, siteSecret, cancellationToken).ConfigureAwait(false);
+
+         // Check the request was successful
+         if( model == null ) return false;
+
+         // Verify the hostname if it's not null
+         if (hostname != null && hostname != model["hostname"]) return false;
+
+         // Verify the action if it's not null
+         if (action != null && action != model["action"]) return false;
+
+         // Now return the success value
          return model["success"].AsBool;
+      }
+
+      /// <summary>
+      /// Validate reCAPTCHA v2 <paramref name="clientToken"/> using your secret and return the full response.
+      /// </summary>
+      /// <param name="clientToken">Required. The user response token provided by the reCAPTCHA client-side integration on your site. The <seealso cref="Constants.ClientResponseKey"/> value pulled from the client with the request headers or hidden form field.</param>
+      /// <param name="remoteIp">Optional. The remote IP of the client</param>
+      /// <param name="siteSecret">Required. The server-side secret: v2 secret, invisible secret, or android secret. The shared key between your site and reCAPTCHA.</param>
+      /// <param name="cancellationToken">Async cancellation token.</param>
+      /// <returns>Task returning the full response.</returns>
+      public virtual async Task<ReCaptcha2Response> Response2Async(string clientToken, string remoteIp, string siteSecret, CancellationToken cancellationToken = default)
+      {
+         var model = await JsonResponse2Async(clientToken, remoteIp, siteSecret, cancellationToken).ConfigureAwait(false);
+
+         if( model == null ) return new ReCaptcha2Response {IsSuccess = false};
+
+         var result = new ReCaptcha2Response();
+
+         foreach( var kv in model )
+         {
+            switch( kv.Key )
+            {
+               case "success":
+                  result.IsSuccess = kv.Value;
+                  break;
+               case "action":
+                  result.Action = kv.Value;
+                  break;
+               case "challenge_ts":
+                  result.ChallengeTs = kv.Value;
+                  break;
+               case "hostname":
+                  result.HostName = kv.Value;
+                  break;
+               case "apk_package_name":
+                  result.ApkPackageName = kv.Value;
+                  break;
+               case "cdata":
+                  result.CData = kv.Value;
+                  break;
+               case "error-codes" when kv.Value is JsonArray errors:
+               {
+                  result.ErrorCodes = errors.Children
+                     .Select(n => (string)n)
+                     .ToArray();
+
+                  break;
+               }
+               default:
+                  result.ExtraJson.Add(kv.Key, kv.Value);
+                  break;
+            }
+         }
+
+         return result;
       }
 
       /// <summary>
@@ -83,7 +163,6 @@ namespace BitArmory.ReCaptcha
       {
          if( string.IsNullOrWhiteSpace(siteSecret) ) throw new ArgumentException("The secret must not be null or empty", nameof(siteSecret));
          if( string.IsNullOrWhiteSpace(clientToken) ) throw new ArgumentException("The client response must not be null or empty", nameof(clientToken));
-
 
          var form = PrepareRequestBody(clientToken, siteSecret, remoteIp);
 
@@ -116,6 +195,9 @@ namespace BitArmory.ReCaptcha
                   break;
                case "hostname":
                   result.HostName = kv.Value;
+                  break;
+               case "apk_package_name":
+                  result.ApkPackageName = kv.Value;
                   break;
                case "error-codes" when kv.Value is JsonArray errors:
                {
