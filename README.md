@@ -5,7 +5,7 @@ BitArmory.ReCaptcha for .NET and C#
 
 Project Description
 -------------------
-:recycle: A minimal, no-drama, friction-less **C#** **HTTP** verification client for **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha).
+:recycle: A minimal, no-drama, friction-less **C#** **HTTP** verification client for **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha), supporing [**Cloudflare Turnstile**](https://developers.cloudflare.com/turnstile/).
 
 The problem with current **ReCaptcha** libraries in **.NET** is that all of them take a hard dependency on the underlying web framework like **ASP.NET WebForms**, **ASP.NET MVC 5**, **ASP.NET Core**, or **ASP.NET Razor Pages**. 
 
@@ -20,6 +20,7 @@ Furthermore, current **reCAPTCHA** libraries for **.NET** are hard coded against
 #### Supported reCAPTCHA Versions
 * [**reCAPTCHA v2 (I'm not a robot)**][2] 
 * [**reCAPTCHA v3 (Invisible)**][3]
+* [**Cloudflare Turnstile (Managed or Invisible)**][4]
 
 #### Crypto Tip Jar
 <a href="https://commerce.coinbase.com/checkout/f78fc08f-f34f-40c5-8262-8595c3492f3a"><img src="https://raw.githubusercontent.com/BitArmory/ReCaptcha/master/docs/tipjar.png" /></a>
@@ -48,9 +49,10 @@ You'll need to create **reCAPTCHA** account. You can sign up [here](https://www.
 1. Your `site` key
 2. Your `secret` key
 
-This library supports both: 
+This library supports: 
 * [**reCAPTCHA v2 (I'm not a robot)**][2] 
 * [**reCAPTCHA v3 (Invisible)**][3].
+* [**Cloudflare Turnstile (Managed or Invisible)**][4]
 
 
 ## reCAPTCHA v3 (Invisible)
@@ -251,6 +253,41 @@ public string GetClientIpAddress(){
 
 That's it! **Happy verifying!** :tada:
 
+### Cloudflare Turnstile
+
+[Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) is an alternative to reCAPTCHA, providing a very similar interface to reCAPTCHA v2, which doesn't require user intereaction unless the visitor is suspected of being a bot.
+
+After following the [instructions](https://developers.cloudflare.com/turnstile/get-started/) to get the client ready, and to generate your secret key, verifying the resposne on the server side is easy.
+
+```csharp
+// 1. Get the client IP address in your chosen web framework
+string clientIp = GetClientIpAddress();
+string captchaResponse = null;
+string secret = "your_secret_key";
+
+// 2. Extract the `cf-turnstile-response` field from the HTML form in your chosen web framework
+if( this.Request.Form.TryGetValue(Constants.TurnstileClientResponseKey, out var formField) )
+{
+   capthcaResponse = formField;
+}
+
+// 3. Validate the response
+var captchaApi = new ReCaptchaService(Constants.TurnstileVerifyUrl);
+var isValid = await captchaApi.Verify2Async(capthcaResponse, clientIp, secret);
+if( !isValid )
+{
+   this.ModelState.AddModelError("captcha", "The reCAPTCHA is not valid.");
+   return new BadRequestResult();
+}
+else{
+   //continue processing, everything is okay!
+}
+```
+
+The full response, including `cdata`, can be fetched using `captchaApi.Response2Async(capthcaResponse, clientIp, secret)`.
+
+Furthermore, the *hostname* and *action* can be (and **should** be) verified by passing the `hostname` and `action` arguments to `captchaApi.Verify2Async`.
+
 
 Building
 --------
@@ -264,3 +301,4 @@ Upon successful build, the results will be in the `\__compile` directory. If you
 [0]:https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers
 [2]:#recaptcha-v2-im-not-a-robot
 [3]:#recaptcha-v3-invisible-1
+[4]:#cloudflare-turnstile
