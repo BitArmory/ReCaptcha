@@ -7,6 +7,10 @@ Project Description
 -------------------
 :recycle: A minimal, no-drama, friction-less **C#** **HTTP** verification client for **Google**'s [**reCAPTCHA** API](https://www.google.com/recaptcha).
 
+:loudspeaker: ***HEY!*** Be sure to checkout these other captcha integrations:
+
+* [**BitArmory.Turnstile**](https://github.com/BitArmory/Turnstile) - Cloudflare's captcha verification service; a good alternative to Google's reCAPTCHA!
+
 The problem with current **ReCaptcha** libraries in **.NET** is that all of them take a hard dependency on the underlying web framework like **ASP.NET WebForms**, **ASP.NET MVC 5**, **ASP.NET Core**, or **ASP.NET Razor Pages**. 
 
 Furthermore, current **reCAPTCHA** libraries for **.NET** are hard coded against the `HttpContext.Request` to retrieve the remote IP address of the visitor. Unfortunately, this method doesn't work if your website is behind a service like **CloudFlare** where the [`CF-Connecting-IP` header value](https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers) is the ***real*** IP address of the visitor on your site.
