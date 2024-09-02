@@ -23,6 +23,8 @@ nuget Fake.Tools.Git               = 5.13.5
 nuget Fake.DotNet.Testing.xUnit2   = 5.13.5
 nuget Fake.BuildServer.AppVeyor    = 5.13.5
 
+nuget MSBuild.StructuredLogger     = 2.2.317
+
 nuget SharpCompress = 0.22.0
 nuget FSharp.Data = 2.4.6
 
